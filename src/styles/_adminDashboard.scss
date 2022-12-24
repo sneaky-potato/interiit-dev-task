@@ -1,0 +1,50 @@
+.dashboard {
+    background-color: $primary-color;
+    color: $text-primary-color;
+    width: 20%;
+    min-height: 100vh;
+    max-height: 100vh;
+    overflow-y: scroll;
+  
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .dashboard-home-btn {
+      background-color: $text-secondary-color;
+      color: $primary-grey;
+      font-size: 1.2rem;
+      font-family: "Karla", sans-serif;
+      font-weight: 600;
+      margin: 1rem 0.5rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 5px;
+  }
+  
+    .hamburger {
+      padding: 0.5rem 1rem;
+    }
+  
+    .dashboard-list {
+      width: 100%;
+  
+      .dashboard-option {
+        color: $text-primary-color;
+        background-color: $primary-color;
+        width: 100%;
+        border: none;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 1rem 20%;
+        font-size: 1rem;
+        cursor: pointer;
+  
+        &[isselected="true"] {
+          background-color: $primary-color-highlight;
+          color: $text-secondary-color;
+        }
+      }
+    }
+}
+  
