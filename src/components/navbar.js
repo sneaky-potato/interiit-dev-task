@@ -4,7 +4,9 @@ import { PropTypes } from 'prop-types';
 import Modal from './modal';
 
 function Navbar(props) {
-  const { currentIndex, setCurrentIndex } = props;
+  const {
+    currentIndex, setCurrentIndex,
+  } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
   const [indices, setIndices] = useState([]);
@@ -45,9 +47,9 @@ function Navbar(props) {
             <a
               target="_blank"
               rel="noreferrer noopener"
-              href="/"
+              href="/admin"
             >
-              /home
+              admin
             </a>
           </li>
           <li>
