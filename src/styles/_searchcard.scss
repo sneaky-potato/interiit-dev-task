@@ -1,0 +1,25 @@
+.searchcard {
+    color: $primary-white;
+    flex: 0 0 30%;
+    background-color: $primary-background;
+    border-radius: 0.2rem;
+    padding: 1rem;
+    margin: 0.5rem;
+    .search-id {
+        font-size: 0.3rem;
+        color: $secondary-color;
+    }
+    .search-title {
+        font-size: 1.25rem;
+    }
+    .search-url a{
+        display: block;
+        color: $text-secondary-color;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+        &:hover {
+          color: $primary-white;
+        }     
+    }
+    
+}

@@ -1,0 +1,40 @@
+.modalContainer {
+    // position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    .apikey-input, apikey-button {
+        background: $primary-grey;
+        white-space: nowrap;
+        display: block;
+        border-radius: 0;
+    }
+    .apikey-input {
+        position: relative;
+        z-index: 1;
+        flex: 1 1 auto;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    & > button {
+        cursor: pointer;
+        font-size: 0.9rem;
+        // height: 100%;
+        width: 20%;
+        color: $text-secondary-color;
+        background-color: $primary-grey;
+        // border: 1px solid $text-secondary-color;
+        border: none;
+        transition: background .3s ease, border .3s ease, color .3s ease;
+    }
+    &:focus-within {
+        .apikey-input{
+            border-color: $text-secondary-color;   
+        }
+        & > button   {
+            color: $primary-grey;
+            background: $text-secondary-color;
+            border-color: $text-secondary-color;
+        }
+    }
+}

@@ -1,0 +1,91 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $secondary-background;
+    color: $text-primary-color;
+    border-bottom: 0.1rem solid $primary-color-highlight;
+
+    .nav-links {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .nav-title {
+            background-color: $text-secondary-color;
+            color: $primary-grey;
+            font-size: 1.2rem;
+            font-family: "Karla", sans-serif;
+            font-weight: 600;
+            margin: 1rem 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+    
+            .server-message {
+              background-color: $heading-color;
+              border-radius: 0.5rem;
+            }
+            li {
+              font-size: 1rem;
+              display: inline-block;
+              padding: 1rem;
+    
+              a {
+                display: block;
+                color: inherit;
+                text-decoration: none;
+    
+                &:hover {
+                  color: $text-secondary-color;
+                }
+              }
+
+              select {
+                background-color: $secondary-background;
+                border: none;
+                display: block;
+                color: inherit;
+                font-size: 1rem;
+                &:hover {
+                  color: $text-secondary-color;
+                }
+              }
+
+              .openModalBtn {
+                background-color: $secondary-background;
+                border: none;
+                display: block;
+                color: inherit;
+                font-size: 1rem;
+    
+                &:hover {
+                  color: $text-secondary-color;
+                }
+              }
+            }
+        }
+    }
+
+    .nav-btns {
+        .nav-logout {
+            background-color: $text-secondary-color;
+            color: $primary-grey;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-family: "Karla", sans-serif;
+            font-weight: 600;
+            margin: 1rem 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            border: none;
+            box-shadow: 4px 4px 10px rgba($color: $heading-color, $alpha: 0.1);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+    }
+}

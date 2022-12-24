@@ -1,0 +1,35 @@
+.searchbar {
+    display: flex;
+    flex-direction: column;
+    
+    .searchbar-card {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .searchbar-text {
+        text-align: center;
+        color: $text-secondary-color;
+    }
+    .searchbar-util {
+        width: 75%;
+    }
+    .searchbar-input {
+        background: $primary-color;
+        border-radius: 0;
+        width: 100%;
+        align-self: center;
+        &:focus-within {
+            border-color: $text-secondary-color;   
+        }
+    }
+    .results {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 0;
+        align-self: center;
+        align-items: center;
+        width: 75%;
+    }
+}
