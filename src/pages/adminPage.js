@@ -1,12 +1,27 @@
-import Navbar from '../components/navbar';
-import Searchbar from '../components/searchbar';
+import { useState } from 'react';
+import AdminDashboard from '../components/adminDashboard';
 import Footer from '../components/footer';
 
 function AdminPage() {
+  const dashboardListData = {
+    defaultSelection: 0,
+    listData: [
+      'Stats',
+      'Indexes',
+      'Documents',
+      'Keys',
+    ],
+  };
+
+  const [currentSelection, setCurrentSelection] = useState(dashboardListData.defaultSelection);
+
   return (
     <div className="admin">
-      <Navbar />
-      <Searchbar />
+      <AdminDashboard
+        listData={dashboardListData.listData}
+        currentSelection={currentSelection}
+        setCurrentSelection={setCurrentSelection}
+      />
       <Footer />
     </div>
   );
