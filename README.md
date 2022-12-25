@@ -10,6 +10,7 @@ A quick introduction of the minimal setup you need to get the development enviro
 
 - Setup a master key protected `meilisearch` backend instance up and running. Refer to [this](https://docs.meilisearch.com/learn/getting_started/quick_start.html#setup-and-installation) for instructions.
 - Add some data to the `meilisearch` server.
+- Note the `master key` for testing the frontend.
 
 ```shell
 git clone https://github.com/sneaky-potato/interiit-dev-task
@@ -18,11 +19,24 @@ yarn install
 yarn start
 ```
 
-- Do setup an `.env` file by taking the reference from `.env.example`. Make sure you add the same `master key` as the one used in `meilisearch` backend instance.
-
 - The frontend has 2 pages-
   - Home Page (`/`): To search in the given indexes using the API Key (Can use the same `master key` here)
   - Admin Page (`/admin`): To manage the server,stats, add, delete indexes and adding documents (Only the `master key` is accepted here)
+
+## Using Docker
+
+- Do set up an `.env` file by taking reference from `.env.example`. The `.env` was not required in the above testing method. You can choose the `MEILI_MASTER_KEY` variable as anything as long as you remember it.
+- For instantly testing the whole application
+
+```shell
+docker compose up --build
+```
+- Or pull up the securch image from docker hub-
+
+```shell
+docker pull sneakyp0tat0/securch
+docker compose up 
+```
 
 ## Implementation details / steps
 
