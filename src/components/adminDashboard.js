@@ -9,6 +9,7 @@ function DashBoardList(props) {
       {
         listData.map((listDataElement, index) => (
           <button
+            key={index}
             type="button"
             className="dashboard-option"
             isselected={String(currentSelection === index)}

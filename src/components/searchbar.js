@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MeiliSearch from 'meilisearch';
 import { PropTypes } from 'prop-types';
 import SearchCard from './searchCard';
+import { MEILISEARCH_URL } from '../config';
 
 function Searchbar(props) {
   const { currentIndex } = props;
@@ -11,7 +12,7 @@ function Searchbar(props) {
 
   useEffect(() => {
     const masterKey = localStorage.getItem('apiKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
 
     client.index(currentIndex).search(query)
       .then((res) => {
@@ -36,8 +37,9 @@ function Searchbar(props) {
       </div>
       <div className="results">
         {
-          hits.map((hit) => (
+          hits.map((hit, index) => (
             <SearchCard
+              key={index}
               id={hit.id}
               title={hit.title}
               url={hit.url}

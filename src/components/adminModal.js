@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { useState, useEffect } from 'react';
 import MeiliSearch from 'meilisearch';
+import { MEILISEARCH_URL } from '../config';
 
 function AdminModal(props) {
   const {
@@ -13,7 +14,7 @@ function AdminModal(props) {
     if (apiKey !== null) {
       setMasterKey(apiKey);
     }
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
     client.getKeys()
       .then((res) => {
         console.log(res);

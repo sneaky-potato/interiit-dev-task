@@ -5,8 +5,9 @@
     background-color: $secondary-background;
     color: $text-primary-color;
     border-bottom: 0.1rem solid $primary-color-highlight;
-
+    
     .nav-links {
+        min-height: fit-content;
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -29,7 +30,9 @@
             .server-message {
               background-color: $heading-color;
               border-radius: 0.5rem;
+              // margin-top: 10rem;
             }
+
             li {
               font-size: 1rem;
               display: inline-block;
@@ -71,21 +74,23 @@
         }
     }
 
-    .nav-btns {
-        .nav-logout {
-            background-color: $text-secondary-color;
-            color: $primary-grey;
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-family: "Karla", sans-serif;
-            font-weight: 600;
-            margin: 1rem 0.5rem;
-            padding: 0.8rem 1.2rem;
-            border-radius: 5px;
-            border: none;
-            box-shadow: 4px 4px 10px rgba($color: $heading-color, $alpha: 0.1);
-            transition: all 0.2s ease-in-out;
-            cursor: pointer;
+    @include sm {
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        ul {
+          width: 100%;
+          li {
+            display: list-item;
+            margin-bottom: 1rem;
+          }
+          .server-message {
+            text-align: center;
+          }
         }
+        .inactive {
+          display: none;
+        }
+      }
     }
 }

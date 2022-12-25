@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MeiliSearch from 'meilisearch';
 import { PropTypes } from 'prop-types';
 import Modal from './modal';
+import { MEILISEARCH_URL } from '../config';
 
 function Navbar(props) {
   const {
@@ -11,20 +12,29 @@ function Navbar(props) {
   const [modalOpen, setModalOpen] = useState(false);
   const [indices, setIndices] = useState([]);
   const [navMessage, setNavMessage] = useState('');
+  const [isNavActive, setIsNavActive] = useState(false);
 
   const changeCurrentIndex = (event) => {
     setCurrentIndex(event.target.value);
   };
 
+  const changeNavbarHandler = () => {
+    setIsNavActive((current) => !current);
+  };
+
   useEffect(() => {
     const masterKey = localStorage.getItem('apiKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
 
     client.getIndexes()
       .then((response) => {
         setIndices(response.results);
-        setCurrentIndex(response.results[0].uid);
-        setNavMessage('');
+        if (response.results[0].uid !== undefined) {
+          setCurrentIndex(response.results[0].uid);
+          setNavMessage('');
+        } else {
+          setNavMessage('No data index found');
+        }
       })
       .catch((error) => {
         if (masterKey !== null) {
@@ -41,8 +51,8 @@ function Navbar(props) {
   return (
     <div className="navbar">
       <div className="nav-links">
-        <div className="nav-title">Search</div>
-        <ul>
+        <button type="button" onClick={changeNavbarHandler} className="nav-title">Securch</button>
+        <ul className={isNavActive ? 'active' : 'inactive'}>
           <li>
             <a
               target="_blank"
@@ -56,7 +66,7 @@ function Navbar(props) {
             <select value={currentIndex} onChange={changeCurrentIndex}>
               {
                 indices.map((index) => (
-                  <option value={index.uid}>{index.uid}</option>
+                  <option key={index} value={index.uid}>{index.uid}</option>
                 ))
               }
             </select>

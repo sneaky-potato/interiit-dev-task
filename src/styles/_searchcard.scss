@@ -4,7 +4,7 @@
     background-color: $primary-background;
     border-radius: 0.2rem;
     padding: 1rem;
-    margin: 0.5rem;
+    margin: 0.5rem 0.5rem;
     .search-id {
         font-size: 0.3rem;
         color: $secondary-color;
@@ -20,6 +20,15 @@
         &:hover {
           color: $primary-white;
         }     
+    }
+    @include sm {
+        flex: 0 0 100%;
+        margin: 0.5rem 0rem;
+    }
+
+    @include md {
+        flex: 0 0 50%;
+        margin: 0.5rem 0rem;
     }
     
 }

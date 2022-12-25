@@ -45,7 +45,7 @@ function Footer() {
         </div>
       </nav>
       <div className="footer-title">
-        Controversy 100.
+        Fatafat 100.
       </div>
     </div>
   );

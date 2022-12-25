@@ -4,7 +4,6 @@
     width: 20%;
     min-height: 100vh;
     max-height: 100vh;
-    overflow-y: scroll;
   
     display: flex;
     flex-direction: column;
@@ -45,6 +44,15 @@
           color: $text-secondary-color;
         }
       }
+      @include md {
+        .dashboard-option {
+          padding: 0.5rem 0.5rem;
+        }
+      }
+    }
+    @include md {
+      width: 100%;
+      min-height: fit-content;
     }
 }
   

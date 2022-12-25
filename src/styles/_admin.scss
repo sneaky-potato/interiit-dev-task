@@ -49,11 +49,7 @@
         }
         .add-index {
             display: flex;
-            // padding: 0;
-            // margin: 0;
-            input {
-
-            }
+            margin: 1rem 1rem;
             button {
                 width: 50%;
                 background-color: $text-secondary-color;
@@ -67,5 +63,8 @@
                 color: $primary-grey;
             }
         }
+    }
+    @include md {
+        flex-direction: column;
     }
 }

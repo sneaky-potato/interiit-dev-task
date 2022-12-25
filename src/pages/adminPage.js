@@ -1,17 +1,20 @@
 import { useState, useEffect } from 'react';
 import MeiliSearch from 'meilisearch';
 import { Notyf } from 'notyf';
+import { useNavigate } from 'react-router-dom';
 import AdminModal from '../components/adminModal';
 import AdminDashboard from '../components/adminDashboard';
 import Footer from '../components/footer';
+import { MEILISEARCH_URL } from '../config';
 
 function Stats() {
-  const [stats, setStats] = useState({});
-  const [version, setVersion] = useState({});
+  const [stats, setStats] = useState({ databaseSize: 0, lastUpdate: 0 });
+  const [version, setVersion] = useState({ commitSha: 'null', commitDate: 'null', pkgVersion: '0.0' });
+  const [keys, setKeys] = useState(['null', 'null']);
 
   useEffect(() => {
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
 
     client.getStats()
       .then((response) => {
@@ -24,6 +27,14 @@ function Stats() {
     client.getVersion()
       .then((response) => {
         setVersion(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    client.getKeys()
+      .then((response) => {
+        setKeys(response.results);
       })
       .catch((error) => {
         console.log(error);
@@ -55,6 +66,18 @@ function Stats() {
         <div className="admin-row-key">Package Version: </div>
         <div className="admin-row-value">{version.pkgVersion}</div>
       </div>
+      {
+        keys.map((key, index) => (
+          <div className="admin-row" key={index}>
+            <div className="admin-row-key">
+              {key.name}
+              :
+              {' '}
+            </div>
+            <div className="admin-row-value">{key.key}</div>
+          </div>
+        ))
+      }
     </div>
   );
 }
@@ -71,11 +94,12 @@ function Indexes() {
   const [addDocument, setAddDocument] = useState('');
 
   const notyf = new Notyf();
+  const navigate = useNavigate();
 
   const changeCurrentIndex = async (event) => {
     setCurrentIndex(event.target.value);
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
     client.index(event.target.value).getStats()
       .then((res) => {
         // console.log('index stats =>', res);
@@ -88,11 +112,12 @@ function Indexes() {
 
   const addIndexHandler = async () => {
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
     client.createIndex(addIndex, { primaryKey: 'id' })
       .then((res) => {
         console.log(res);
         notyf.success('Added index');
+        navigate('/admin');
       })
       .catch((err) => {
         console.log(err);
@@ -102,11 +127,12 @@ function Indexes() {
 
   const deleteIndexHandler = async () => {
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
     client.deleteIndex(currentIndex)
       .then((res) => {
         console.log(res);
         notyf.success('Deleted index');
+        navigate('/admin');
       })
       .catch((err) => {
         console.log(err);
@@ -116,8 +142,8 @@ function Indexes() {
 
   const addDocumentHandler = async () => {
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
-    client.index(currentIndex).addDocuments(JSON.parse(addDocument))
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
+    client.index(currentIndex).addDocuments(JSON.parse(String(addDocument)))
       .then((res) => {
         console.log(res);
         notyf.success('Added document');
@@ -130,7 +156,7 @@ function Indexes() {
 
   useEffect(() => {
     const masterKey = localStorage.getItem('masterKey');
-    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    const client = new MeiliSearch({ host: MEILISEARCH_URL, apiKey: masterKey });
 
     client.getIndexes()
       .then((response) => {
@@ -158,8 +184,8 @@ function Indexes() {
       </div>
       <select value={currentIndex} onChange={changeCurrentIndex}>
         {
-          indices.map((index) => (
-            <option value={index.uid}>{index.uid}</option>
+          indices.map((index, ind) => (
+            <option key={ind} value={index.uid}>{index.uid}</option>
           ))
         }
       </select>
