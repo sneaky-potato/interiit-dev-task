@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/homePage';
 import AdminPage from './pages/adminPage';
+import 'notyf/notyf.min.css';
 
 function App() {
   return (
