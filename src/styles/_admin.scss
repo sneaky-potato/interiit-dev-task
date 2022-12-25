@@ -20,5 +20,52 @@
                 color: $api-value;
             }
         }
+        select {
+            background-color: $secondary-background;
+            border: none;
+            display: block;
+            color: inherit;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            &:hover {
+              color: $text-secondary-color;
+            }
+        }
+        button {
+            color: $primary-white;
+            font-size: 1rem;
+            font-family: "Karla", sans-serif;
+            font-weight: 600;
+            margin: 1rem 0.5rem;
+            padding: 0.8rem 1.2rem;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: $heading-color;
+            border-radius: 0.5rem;
+            &:hover {
+                background-color: #DC143C;
+            }
+        }
+        .add-index {
+            display: flex;
+            // padding: 0;
+            // margin: 0;
+            input {
+
+            }
+            button {
+                width: 50%;
+                background-color: $text-secondary-color;
+                color: $primary-grey;
+            }
+        }
+        .add-document {
+            display: flex;
+            button {
+                background-color: $text-secondary-color;
+                color: $primary-grey;
+            }
+        }
     }
 }
