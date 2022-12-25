@@ -1,0 +1,24 @@
+.admin {
+    display: flex;
+    .admin-body {
+        width: 100%;
+        color: $text-primary-color;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .admin-title {
+            font-size: 2.5rem;
+            padding-bottom: 3rem;
+        }
+
+        .admin-row {
+            display: flex;
+            .admin-row-key {
+                color: $text-secondary-color;
+            }
+            .admin-row-value {
+                color: $api-value;
+            }
+        }
+    }
+}
