@@ -1,0 +1,20 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    volumes:
+      - meilei_data:/meili_data
+    ports:
+      - 7700:7700
+    env_file:
+      - .env
+  app:
+    container_name: securch
+    image: securch
+    build: 
+      context: .
+      target: production
+    ports:
+      - 8080:80
+
+volumes:
+  meilei_data:
