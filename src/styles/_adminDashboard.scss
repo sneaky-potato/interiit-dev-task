@@ -49,8 +49,17 @@
           padding: 0.5rem 0.5rem;
         }
       }
+      @include sm {
+        .dashboard-option {
+          padding: 0.5rem 0.5rem;
+        }
+      }
     }
     @include md {
+      width: 100%;
+      min-height: fit-content;
+    }
+    @include sm {
       width: 100%;
       min-height: fit-content;
     }

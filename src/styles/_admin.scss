@@ -13,6 +13,7 @@
 
         .admin-row {
             display: flex;
+            overflow-wrap: anywhere;
             .admin-row-key {
                 color: $text-secondary-color;
             }
@@ -65,6 +66,9 @@
         }
     }
     @include md {
+        flex-direction: column;
+    }
+    @include sm {
         flex-direction: column;
     }
 }
