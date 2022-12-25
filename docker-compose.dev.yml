@@ -1,0 +1,22 @@
+services:
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    volumes:
+      - meili:/
+    ports:
+      - 7700:7700
+    env_file:
+      - .env
+  app:
+    container_name: app-dev
+    image: app-dev
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 3000:3000
+volumes:
+  meili:
