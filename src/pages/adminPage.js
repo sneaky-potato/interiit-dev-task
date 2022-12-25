@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import MeiliSearch from 'meilisearch';
+import { Notyf } from 'notyf';
 import AdminModal from '../components/adminModal';
 import AdminDashboard from '../components/adminDashboard';
 import Footer from '../components/footer';
@@ -66,8 +67,65 @@ function Indexes() {
     fieldDistribution: { id: 0 },
   });
 
-  const changeCurrentIndex = (event) => {
+  const [addIndex, setAddIndex] = useState('');
+  const [addDocument, setAddDocument] = useState('');
+
+  const notyf = new Notyf();
+
+  const changeCurrentIndex = async (event) => {
     setCurrentIndex(event.target.value);
+    const masterKey = localStorage.getItem('masterKey');
+    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    client.index(event.target.value).getStats()
+      .then((res) => {
+        // console.log('index stats =>', res);
+        setIndexStats(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const addIndexHandler = async () => {
+    const masterKey = localStorage.getItem('masterKey');
+    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    client.createIndex(addIndex, { primaryKey: 'id' })
+      .then((res) => {
+        console.log(res);
+        notyf.success('Added index');
+      })
+      .catch((err) => {
+        console.log(err);
+        notyf.error('Some error occurred');
+      });
+  };
+
+  const deleteIndexHandler = async () => {
+    const masterKey = localStorage.getItem('masterKey');
+    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    client.deleteIndex(currentIndex)
+      .then((res) => {
+        console.log(res);
+        notyf.success('Deleted index');
+      })
+      .catch((err) => {
+        console.log(err);
+        notyf.error('Some error occurred');
+      });
+  };
+
+  const addDocumentHandler = async () => {
+    const masterKey = localStorage.getItem('masterKey');
+    const client = new MeiliSearch({ host: 'http://localhost:7700', apiKey: masterKey });
+    client.index(currentIndex).addDocuments(JSON.parse(addDocument))
+      .then((res) => {
+        console.log(res);
+        notyf.success('Added document');
+      })
+      .catch((err) => {
+        console.log(err);
+        notyf.error('Some error occurred');
+      });
   };
 
   useEffect(() => {
@@ -77,7 +135,7 @@ function Indexes() {
     client.getIndexes()
       .then((response) => {
         setIndices(response.results);
-        setCurrentIndex(response.results[0].uid);
+        // setCurrentIndex(response.results[0].uid);
 
         client.index(response.results[0].uid).getStats()
           .then((res) => {
@@ -91,7 +149,7 @@ function Indexes() {
       .catch((error) => {
         console.log(error);
       });
-  }, [currentIndex]);
+  }, []);
 
   return (
     <div className="stats admin-body">
@@ -105,6 +163,9 @@ function Indexes() {
           ))
         }
       </select>
+      <button type="button" onClick={deleteIndexHandler}>
+        Delete
+      </button>
       <div className="admin-row">
         <div className="admin-row-key">Number of Documents: </div>
         <div className="admin-row-value">{indexStats.numberOfDocuments}</div>
@@ -114,6 +175,14 @@ function Indexes() {
         <div className="admin-row-value">
           {Object.keys(indexStats.fieldDistribution).map((index) => ` ${index}`)}
         </div>
+      </div>
+      <div className="add-index">
+        <input type="text" placeholder="New Index" value={addIndex} onChange={(e) => setAddIndex(e.target.value)} />
+        <button type="button" onClick={addIndexHandler}>Add Index</button>
+      </div>
+      <div className="add-document">
+        <input type="text" placeholder="New Document (JSON)" value={addDocument} onChange={(e) => setAddDocument(e.target.value)} />
+        <button type="button" onClick={addDocumentHandler}>Add / Update Document</button>
       </div>
     </div>
   );
@@ -125,8 +194,6 @@ function AdminPage() {
     listData: [
       'Stats',
       'Indexes',
-      'Documents',
-      'Keys',
     ],
   };
 
