@@ -25,3 +25,5 @@ yarn-error.log*
 .vscode/
 .env
 meilisearch
+data.ms/
+dumps/
